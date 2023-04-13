@@ -44,9 +44,14 @@ public class ClassGeneratorServiceImpl implements ClassGeneratorService {
             initDirectory(basePath);
 
             // 生成controller、service、impl类文件
-            String controllerPath = String.format(GeneratorConstant.CONTROLLER_PATH, basePath) + GeneratorConstant.SEPARATOR + serviceInfo.getServiceName() + "Controller.java";
-            String servicePath = String.format(GeneratorConstant.SERVICE_PATH, basePath) + GeneratorConstant.SEPARATOR + serviceInfo.getServiceName() + "Service.java";
-            String implPath = String.format(GeneratorConstant.IMPL_PATH, basePath) + GeneratorConstant.SEPARATOR + serviceInfo.getServiceName() + "ServiceImpl.java";
+            String controllerPath =
+                    String.format(GeneratorConstant.CONTROLLER_PATH, basePath) + File.separator + serviceInfo.getServiceName() +
+                            "Controller.java";
+            String servicePath =
+                    String.format(GeneratorConstant.SERVICE_PATH, basePath) + File.separator + serviceInfo.getServiceName() +
+                            "Service.java";
+            String implPath = String.format(GeneratorConstant.IMPL_PATH, basePath) + File.separator + serviceInfo.getServiceName() +
+                    "ServiceImpl.java";
             freemarkerGenerator.createFile(GeneratorConstant.CONTROLLER_FTL, controllerPath, serviceInfo);
             freemarkerGenerator.createFile(GeneratorConstant.SERVICE_FTL, servicePath, serviceInfo);
             freemarkerGenerator.createFile(GeneratorConstant.IMPL_FTL, implPath, serviceInfo);
@@ -54,7 +59,9 @@ public class ClassGeneratorServiceImpl implements ClassGeneratorService {
             // 生成entity类文件
             for (ApiInfo apiInfo : serviceInfo.getApiList()) {
                 for (EntityInfo entityInfo : apiInfo.getEntityInfoList()) {
-                    String entityPath = String.format(GeneratorConstant.ENTITY_PATH, basePath) + GeneratorConstant.SEPARATOR + entityInfo.getClassName() + ".java";
+                    String entityPath =
+                            String.format(GeneratorConstant.ENTITY_PATH, basePath) + File.separator + serviceInfo.getServiceName() +
+                                    ".java";
                     freemarkerGenerator.createFile(GeneratorConstant.ENTITY_FTL, entityPath, entityInfo);
                 }
             }
